@@ -2,7 +2,7 @@ name: Atualizar perfil
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # a cada 6h
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,12 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Buscar dados
+      - name: Buscar dados do GitHub
         run: |
-          curl https://api.github.com/users/hvmpro > perfil.json
-          curl https://api.github.com/users/hvmpro/repos > repos.json
+          curl -s https://api.github.com/users/hvmpro > perfil.json
+          curl -s https://api.github.com/users/hvmpro/repos > repos.json
 
-      - name: Commit
+      - name: Verificar arquivos
+        run: |
+          cat perfil.json
+          cat repos.json
+
+      - name: Commit e push
         run: |
           git config user.name "bot"
           git config user.email "bot@github.com"
