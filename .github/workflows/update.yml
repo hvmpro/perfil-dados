@@ -14,8 +14,8 @@ jobs:
 
       - name: Buscar dados
         run: |
-          curl https://api.github.com/users/SEU_USUARIO > perfil.json
-          curl https://api.github.com/users/SEU_USUARIO/repos > repos.json
+          curl https://api.github.com/users/hvmpro > perfil.json
+          curl https://api.github.com/users/hvmpro/repos > repos.json
 
       - name: Commit
         run: |
