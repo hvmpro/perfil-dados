@@ -1,0 +1,26 @@
+name: Atualizar perfil
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # a cada 6h
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Buscar dados
+        run: |
+          curl https://api.github.com/users/SEU_USUARIO > perfil.json
+          curl https://api.github.com/users/SEU_USUARIO/repos > repos.json
+
+      - name: Commit
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@github.com"
+          git add .
+          git commit -m "update dados" || echo "sem mudanças"
+          git push
